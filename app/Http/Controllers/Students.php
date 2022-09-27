@@ -9,7 +9,7 @@ class Students extends Controller
 {
     public function index(): void
     {
-        echo "Список пользователей";
+        dump($this->getStudents());
     }
 
     public function show(int $id): void
