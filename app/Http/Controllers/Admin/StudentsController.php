@@ -14,7 +14,7 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        //
+        echo "Список студентов";
     }
 
     /**
@@ -24,7 +24,7 @@ class StudentsController extends Controller
      */
     public function create()
     {
-        //
+        echo "Добавление пользователя";
     }
 
     /**
