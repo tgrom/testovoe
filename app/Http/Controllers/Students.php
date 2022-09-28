@@ -7,13 +7,21 @@ use Illuminate\Http\Request;
 
 class Students extends Controller
 {
-    public function index(): void
+    public function index()
     {
-        dump($this->getStudents());
+        $students = $this->getStudents();
+
+        return view('students', [
+
+                'studentsList' => $students
+
+        ]);
     }
 
-    public function show(int $id): void
+    public function show(int $id)
     {
-        echo "Пользователь с id: {$id}";
+        return view('showstudents', [
+            'students' => $this->getStudents($id)
+        ]);
     }
 }

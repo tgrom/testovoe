@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Students;
+use \App\Http\Controllers\Admin\StudentsController as AdminStudentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/students', [Students::class, 'index']);
-Route::get('/students/{id}', [Students::class, 'show']);
+
+//Adminka
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::resource('students', AdminStudentsController::class);
+});
+
+
+Route::get('/students', [Students::class, 'index'])->
+        name('students');
+Route::get('/students/{id}', [Students::class, 'show'])->where('id','\d+')->
+        name('student.show');
 
