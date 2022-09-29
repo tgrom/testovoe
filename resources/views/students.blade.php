@@ -1,17 +1,27 @@
-Список пользователей:
-<?php foreach ($studentsList as $students): ?>
+@extends('layots.main')
+@section('content')
 
-<div class="students">
-    <p><?=$students['user_family']?></p>
-    <p><?=$students['user_name']?></p>
-    <p><?=$students['email']?></p>
-    <p><?=$students['country']?></p>
-    <p><?=$students['city']?></p>
-    <p><a href="<?=route('student.show', ['id' => $students['id']])?>"> <?=$students['login']?></p></a>
-    <p><?=$students['password']?></p>
+
+@forelse($studentsList as $students)
+    <div class="col">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+
+                <strong><p><a href="{{ route('student.show', ['id' => $students['id']])}}">{{ $students['user_family']}}</p></a></strong>
+                <strong><p><a href="{{ route('student.show', ['id' => $students['id']])}}">{{$students['user_name']}}</p></a></strong>
+    <p>{{$students['email']}}</p>
+
     <hr>
     <br>
 
+            </div>
+        </div>
+    </div>
+@empty
+    <h4>Пользователей нет</h4>
+
 </div>
 
-<?php endforeach; ?>
+@endforelse
+@endsection
