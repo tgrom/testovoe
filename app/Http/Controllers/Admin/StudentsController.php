@@ -10,21 +10,21 @@ class StudentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        echo "Список студентов";
+        return view('admin.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        echo "Добавление пользователя";
+        return view('admin.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.edit');
     }
 
     /**
