@@ -6,6 +6,10 @@
             <div class="btn-group me-2">
                 <a href="{{ route('admin.students.create') }}" class="btn btn-sm btn-outline-secondary">Добавить пользователя</a>
             </div>
+
         </div>
     </div>
+    <x-alert type="danger" message="Warning"/>
+    <x-alert type="success" message="Успешено"/>
+    <x-alert type="info" message="Info"/>
 @endsection
