@@ -16,11 +16,12 @@ class Controller extends BaseController
     public function getStudents(?int $id = null): array
     {
         $faker = Factory::create('Ru_RU');
+        $new = explode(' ',$faker->Name());
         if ($id) {
             return [
                 'id' => $id,
-                'user_family' => $faker->firstName(),
-                'user_name' => strtok($faker->Name(),' '),
+                'user_family' => $new[0],
+                'user_name' => $new[1] .' '. $new[2],
                 'email' => $faker->email(),
                 'country' => 'Российская Федерация',
                 'city' => $faker->city(),
