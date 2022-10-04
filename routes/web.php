@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\Admin\IndexController as AdminController;
 use \App\Http\Controllers\Students;
 use \App\Http\Controllers\Admin\StudentsController as AdminStudentsController;
 
@@ -22,6 +23,7 @@ Route::get('/', function () {
 
 //Adminka
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('/', AdminController::class)->name('hello');
     Route::resource('students', AdminStudentsController::class);
 });
 
