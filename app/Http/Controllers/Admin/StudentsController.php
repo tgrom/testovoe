@@ -35,7 +35,16 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_family' => ['required', 'string']
+        ]);
+        dd($request->only(['user_family',
+                'user_name',
+                'email',
+                'country',
+                'city',
+                'login',
+                'password']));
     }
 
     /**
