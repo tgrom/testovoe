@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentsController extends Controller
@@ -14,7 +15,12 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $stud = app(Student::class);
+
+
+        return view('admin.index', [
+            'students' => $stud->getStudents()
+        ]);
     }
 
     /**
