@@ -21,7 +21,7 @@ class CreateStudentsTable extends Migration
             $table->string('country');
             $table->string('city');
             $table->string('login')-> unique();
-            $table->integer('password');
+            $table->integer('pass');
             $table->timestamps();
         });
     }
