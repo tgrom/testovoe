@@ -10,6 +10,7 @@
         </div>
     </div>
     <div class="table-responsive">
+        @include('inc.messages')
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -35,7 +36,7 @@
                         <td>{{ $student->country }}</td>
                         <td>{{ $student->city }}</td>
                         <td>{{ $student->login }}</td>
-                        <td>{{ $student->password }}</td>
+                        <td>{{ $student->pass }}</td>
                         <td>
                             <a href="{{ route('admin.students.edit', ['student' => $student->id]) }}">Ред</a>
                             &nbsp;
@@ -50,5 +51,9 @@
                 @endforelse
                 </tbody>
         </table>
+
+        {{ $students->links() }}
+
+
     </div>
 @endsection

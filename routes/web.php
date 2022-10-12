@@ -33,3 +33,7 @@ Route::get('/students', [Students::class, 'index'])->
 Route::get('/students/{id}', [Students::class, 'show'])->where('id','\d+')->
         name('student.show');
 
+
+
+
+

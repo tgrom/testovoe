@@ -8,11 +8,7 @@
 
     </div>
     <div class="raw">
-        @if($errors -> any())
-            @foreach($errors->all() as $error)
-                <x-alert type="danger" :message="$error"></x-alert>
-            @endforeach
-        @endif
+        @include('inc.messages')
 
         <form method="post" action="{{ route('admin.students.store') }}">
             @csrf
@@ -43,7 +39,7 @@
 
             <div class="form-group">
                 <label for="pass">Пароль</label>
-                <input type="number" class="form-control" name="pass" id="passd" value="{{ old('passd') }}">
+                <input type="number" class="form-control" name="pass" id="pass" value="{{ old('pass') }}">
             </div>
             <br><br>
             <button type="submit" class="btn btn-success">Добавить</button>
