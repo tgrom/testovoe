@@ -1,9 +1,13 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Student\CreateRequest;
+use App\Http\Requests\Student\EditRequest;
 use App\Models\Student;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class StudentsController extends Controller
@@ -35,35 +39,37 @@ class StudentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateRequest $request
+     * @param Student $student
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request, Student $student)
     {
-        $data = $request->only([
-            'user_family',
+
+
+
+        $data = $request->only(['user_family',
             'user_name',
             'email',
             'country',
             'city',
             'login',
-            'pass'
-        ]);
+            'pass']);
         $student = Student::create($data);
         if($student){
             return redirect()->route('admin.students.index')
-                ->with('success', 'Все сделано правильно! Запись добавлена!');
+                ->with('success', 'messages.admin.students.create.success');
         }
-        return back()->with('error', 'Что-то пошло не так!');
+        return back()->with('error', 'messages.admin.students.create.fail');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Student $student
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Student $student)
     {
         //
     }
@@ -85,37 +91,39 @@ class StudentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param EditRequest $request
      * @param Student $student
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Student $student)
+    public function update(EditRequest $request, Student $student)
     {
-        $student->fill($request->only([
-            'user_family',
-            'user_name',
-            'email',
-            'country',
-            'city',
-            'login',
-            'pass'
-        ]));
+
+
+        $student->fill($request->validated());
 
         if($student->save()){
             return redirect()->route('admin.students.index')
-                ->with('success', 'Все сделано правильно! Запись изменена!');
+                ->with('success', __('messages.admin.students.update.success'));
         }
-        return back()->with('error', 'Что-то пошло не так!');
+        return back()->with('error', 'messages.admin.students.update.fail');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Student $student
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Student $student): JsonResponse
     {
-        //
+        try {
+            $student->delete();
+
+            return response()->json(['status' => 'ok']);
+
+        }catch (\Exception $e) {
+
+            return response()->json(['status' => 'error'], 400);
+        }
     }
 }

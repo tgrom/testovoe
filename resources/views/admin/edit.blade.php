@@ -19,11 +19,12 @@
             </div>
             <div class="form-group">
                 <label for="user_name">Имя и отчество</label>
-                <input type="text" class="form-control" name="user_name" id="user_name" value="{{ $student->user_name }}">
+                <input type="text" class="form-control @if($errors->has('user_name'))alert-danger @endif" name="user_name" id="user_name" value="{{ $student->user_name }}">
+                @error('user_name') <strong style="color: Red">{{ $message }}</strong> @enderror
             </div>
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="text" class="form-control" name="email" id="email" value="{{ $student->email }}">
+                <input type="email" class="form-control" name="email" id="email" value="{{ $student->email }}">
             </div>
             <div class="form-group">
                 <label for="country">Страна</label>
