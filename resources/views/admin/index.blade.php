@@ -40,7 +40,7 @@
                         <td>
                             <a href="{{ route('admin.students.edit', ['student' => $student->id]) }}">Ред</a>
                             &nbsp;
-                            <a href="javascript:;" style="color: red">Удалить</a>
+                            <a href="javascript:;" class="delete" rel="{{ $student->id }} {{$student->user_family. ' '. $student->user_name}}" style="color: red">Удалить</a>
                         </td>
                     </tr>
 
@@ -57,3 +57,34 @@
 
     </div>
 @endsection
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        const el = document.querySelectorAll(".delete");
+        el.forEach(function(element, index) {
+            element.addEventListener("click", function() {
+                const id = this.getAttribute("rel");
+                if(confirm(`Подтвердите удаление записи с #ID ${id}
+                 Данную запись НЕЛЬЗЯ восстановить`)) {
+                    //send id on backend
+                    send(`/admin/students/${id}`).then(() => {
+                        alert("Отлично! Все пропало :-)");
+                        location.reload();
+                    });
+                }
+            });
+        });
+    });
+    async function send(url) {
+        let response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                    .getAttribute('content')
+            }
+        });
+        let result = await response.json();
+        return result.ok;
+    }
+</script>
