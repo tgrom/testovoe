@@ -119,11 +119,12 @@ class StudentsController extends Controller
         try {
             $student->delete();
 
-            return response()->json(['status' => 'ok']);
+            return response()->json(['status'=>'ok']);
 
         }catch (\Exception $e) {
-
-            return response()->json(['status' => 'error'], 400);
+            Log::error("News was't delete" );
+            return response()->json(['status'=>'error'], 400);
         }
     }
+
 }
