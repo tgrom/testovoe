@@ -19,7 +19,7 @@ use \App\Http\Controllers\Account\IndexController as IndexController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'account', 'as' => 'account'], function () {
@@ -36,7 +36,11 @@ Route::group(['middleware' => 'auth'], function () {
 //Adminka
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin.check'], function () {
         Route::get('/', AdminController::class)->name('hello');
+        Route::get('/students/export', [AdminStudentsController::class, 'export'])->name('export');
+        Route::post('students/import', [AdminStudentsController::class, 'import'])->name('import');
         Route::resource('students', AdminStudentsController::class);
+
+
     });
 
     Route::get('/students', [Students::class, 'index'])->
@@ -46,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 });
+
 
 
 

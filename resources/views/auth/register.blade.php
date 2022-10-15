@@ -1,4 +1,7 @@
 @extends('layots.app')
+@section('title')
+    <title>Регистрация</title>
+@endsection
 
 @section('content')
 <div class="container">
