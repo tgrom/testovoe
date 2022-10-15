@@ -1,4 +1,7 @@
 @extends('layots.app')
+@section('title')
+    <title>Логин</title>
+@endsection
 
 @section('content')
 <div class="container">

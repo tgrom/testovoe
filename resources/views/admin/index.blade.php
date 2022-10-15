@@ -51,6 +51,28 @@
                 @endforelse
                 </tbody>
         </table>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+
+        <form method="post" enctype="multipart/form-data" action="{{ route('admin.import') }}">
+            @csrf
+            <input type="file" name="files" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" value="Импорт данных">
+            <input type="submit" value="Импорт">
+
+        </form>
+            </div></div>
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                    <a href="{{ route('admin.export') }}" class="btn btn-sm btn-outline-secondary">Скачать в Excel </a>
+                </div>
+
+            </div>
+        </div>
+
+
 
         {{ $students->links() }}
 

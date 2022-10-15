@@ -4,6 +4,10 @@
             <li class="nav-item">
                 <a class="nav-link @if(request() -> routeIs('students')) active @endif" aria-current="page" href="{{ route('students') }}">
                     <span data-feather="home"></span>
+                    Смотреть
+                </a>
+                <a class="nav-link @if(request() -> routeIs('welcome')) active @endif" aria-current="page" href="{{ route('welcome') }}">
+                    <span data-feather="home"></span>
                     Главная
                 </a>
             </li>

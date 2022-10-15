@@ -3,12 +3,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Student\CreateRequest;
 use App\Http\Requests\Student\EditRequest;
+use App\Imports\StudentsImport;
 use App\Models\Student;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Exports\StudentsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentsController extends Controller
 {
@@ -24,6 +28,27 @@ class StudentsController extends Controller
         return view('admin.index', [
             'students' => Student::paginate(7)
         ]);
+    }
+    public function import(Request $request)
+    {
+        if ($_FILES['files']['type'] =='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+            Excel::import(new StudentsImport, $request->file('files'));
+
+            return redirect()->route('admin.students.index')
+                ->with('success', __('messages.admin.students.import.success'));
+        }
+        else {
+            return back()->with('error', __('messages.admin.students.import.fail'));
+        }
+
+
+
+    }
+
+    public function export() {
+
+        return Excel::download(new StudentsExport, 'students.xlsx');
+
     }
 
     /**
@@ -58,7 +83,7 @@ class StudentsController extends Controller
         $student = Student::create($data);
         if($student){
             return redirect()->route('admin.students.index')
-                ->with('success', 'messages.admin.students.create.success');
+                ->with('success', __('messages.admin.students.create.success'));
         }
         return back()->with('error', 'messages.admin.students.create.fail');
     }
