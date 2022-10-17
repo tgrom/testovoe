@@ -12,6 +12,7 @@ use App\Models\Student;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Exports\StudentsExport;
+use League\Flysystem\Exception;
 use Maatwebsite\Excel\Facades\Excel;
 
 class StudentsController extends Controller
@@ -32,10 +33,14 @@ class StudentsController extends Controller
     public function import(Request $request)
     {
         if ($_FILES['files']['type'] =='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-            Excel::import(new StudentsImport, $request->file('files'));
 
-            return redirect()->route('admin.students.index')
-                ->with('success', __('messages.admin.students.import.success'));
+
+
+                Excel::import(new StudentsImport, $request->file('files'));
+
+                    return redirect()->route('admin.students.index')
+                        ->with('success', __('messages.admin.students.import.success'));
+
         }
         else {
             return back()->with('error', __('messages.admin.students.import.fail'));

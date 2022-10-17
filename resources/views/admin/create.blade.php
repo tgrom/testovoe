@@ -35,11 +35,46 @@
             <div class="form-group">
                 <label for="login">Логин</label>
                 <input type="text" class="form-control" name="login" id="login" value="{{ old('login') }}">
+                <button type="button" class="btn" onclick="genLogin()">Сгенерировать</button>
+
+
+
+                <script type="text/javascript">
+                    var password=document.getElementById("login");
+                    function genLogin() {
+                        var chars = "abcdefghijklmnopqrstuvwxyz";
+                        var passwordLength = 5;
+                        var password = "";
+                        for (var i = 0; i <= passwordLength; i++) {
+                            var randomNumber = Math.floor(Math.random() * chars.length);
+                            password += chars.substring(randomNumber, randomNumber +1);
+                        }
+                        document.getElementById("login").value = password;
+                    }
+                </script>
             </div>
 
             <div class="form-group">
                 <label for="pass">Пароль</label>
+
                 <input type="number" class="form-control" name="pass" id="pass" value="{{ old('pass') }}">
+                <button type="button" class="btn" onclick="genPassword()">Сгенерировать</button>
+
+
+
+                <script type="text/javascript">
+                var password=document.getElementById("pass");
+                function genPassword() {
+                var chars = "0123456789";
+                var passwordLength = 7;
+                var password = "";
+                for (var i = 0; i <= passwordLength; i++) {
+                var randomNumber = Math.floor(Math.random() * chars.length);
+                password += chars.substring(randomNumber, randomNumber +1);
+                }
+                document.getElementById("pass").value = password;
+                }
+                </script>
             </div>
             <br><br>
             <button type="submit" class="btn btn-success">Добавить</button>
